@@ -1,0 +1,153 @@
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Calories Query</title>
+
+  <style>
+    /* Style for the table */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Style for the form */
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Style for parameter and equivalent weight sections */
+    p {
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    li::before {
+        content: "•";
+        color: #4CAF50;
+        margin-right: 10px;
+    }
+
+    body {
+        background-color: #e6edf2;
+    }
+  </style>
+</head>
+<body>
+<h1>Calories Query</h1>
+
+<form th:action="@{/api/nutrition/fetch}" method="get">
+  <label for="query">Enter foodstuffs:</label>
+  <input type="text" id="query" name="query" placeholder="e.g., 10oz onion and a potato or Last night we ordered a 14oz prime rib and mashed potatoes." required>
+  <button type="submit">Get Nutrition</button>
+</form>
+
+<!-- Instructions for the "query" parameter -->
+<p>Parameters:</p>
+<ul>
+  <li><strong>query (required)</strong> - a string containing food or drink items. If you wish to calculate a specific
+    quantity, you may prefix a quantity before an item. For example, 3 tomatoes or 1lb beef brisket. If no quantity is
+    specified, the default quantity is 100 grams. Queries cannot exceed 1500 characters.
+  </li>
+</ul>
+
+<p>Equivalent Weights:</p>
+<ul>
+  <li><strong>1 ounce (oz)</strong> is approximately equal to 28.35 grams (g).</li>
+  <li><strong>1 pound (lb)</strong> is approximately equal to 453.59237 grams (g).</li>
+</ul>
+
+<div th:if="${nutritionItems}">
+  <h2>Nutrition Information</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Calories</th>
+      <th>Serving Size (g)</th>
+      <th>Fat Total (g)</th>
+      <th>Fat Saturated (g)</th>
+      <th>Protein (g)</th>
+      <th>Sodium (mg)</th>
+      <th>Potassium (mg)</th>
+      <th>Cholesterol (mg)</th>
+      <th>Carbohydrates Total (g)</th>
+      <th>Fiber (g)</th>
+      <th>Sugar (g)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${nutritionItems}">
+      <td th:text="${item.name}"></td>
+      <td th:text="${item.calories}"></td>
+      <td th:text="${item.serving_size_g}"></td>
+      <td th:text="${item.fat_total_g}"></td>
+      <td th:text="${item.fat_saturated_g}"></td>
+      <td th:text="${item.protein_g}"></td>
+      <td th:text="${item.sodium_mg}"></td>
+      <td th:text="${item.potassium_mg}"></td>
+      <td th:text="${item.cholesterol_mg}"></td>
+      <td th:text="${item.carbohydrates_total_g}"></td>
+      <td th:text="${item.fiber_g}"></td>
+      <td th:text="${item.sugar_g}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div th:if="${totalCalories != null}">
+  <p>Total Calories: <span th:text="${totalCalories}">0</span></p>
+</div>
+</div>
+
+
+</script>
+</body>
+</html>
+
