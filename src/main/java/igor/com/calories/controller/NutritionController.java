@@ -61,7 +61,6 @@ String apiKey;
 
                 double totalCalories = 0;
                 for (NutritionItem myItems : nutritionItems) {
-                    System.out.println(myItems);
                     double myCalories = myItems.getCalories();
                     totalCalories = totalCalories + myCalories;
                 }
