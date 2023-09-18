@@ -7,6 +7,7 @@ Calories Query is a web application that allows users to retrieve nutrition info
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
+- [Dockerization](#dockerization)
 - [Usage](#usage)
 
 
@@ -45,6 +46,16 @@ To get started with this project, follow these steps:
    ```bash
    mvn spring-boot:run
 5. Open your web browser and access the application at http://localhost:8080/api/nutrition/fetch?query=
+
+## Dockerization
+You can also run the Calories Query application in a Docker container. Follow these steps to dockerize the app:
+ * Build a Docker image using the provided Dockerfile:
+   ```bash
+   docker build -t calories-query .
+* Run a Docker container from the image:
+  ```bash
+  docker run -p 8080:8080 calories-query
+The application will be accessible at http://localhost:8080/api/nutrition/fetch?query=
 
 ## Usage
 Open the web application in your browser.
