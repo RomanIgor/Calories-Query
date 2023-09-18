@@ -23,10 +23,9 @@ import java.util.Map;
 @RequestMapping("/api/nutrition")
 public class NutritionController {
 
-@Autowired
-NutritionItem nutritionItem;
-@Value("${api.key}")
-String apiKey;
+
+@Value("${API_KEY}")
+String apiKey ;
 
     @GetMapping("/fetch")
     public String fetchNutritionData(@RequestParam("query") String query, Model model) {
